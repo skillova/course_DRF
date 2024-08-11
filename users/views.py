@@ -8,6 +8,7 @@ from rest_framework import generics
 
 
 class UserCreateAPIView(generics.CreateAPIView):
+    """ Создание пользователя """
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
 
@@ -18,27 +19,32 @@ class UserCreateAPIView(generics.CreateAPIView):
 
 
 class UserListAPIView(generics.ListAPIView):
+    """ Список пользователей """
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = (AllowAny, IsAdminUser)
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
+    """ Просмотр пользователя """
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes = (IsAdminUser, IsOwner)
+    permission_classes = (IsAdminUser,)
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
+    """ Обновление пользователя """
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes = (IsAdminUser, IsOwner)
+    permission_classes = (IsAdminUser,)
 
 
 class UserDestroyAPIView(generics.DestroyAPIView):
+    """ Удаление пользователя """
     queryset = User.objects.all()
-    permission_classes = (IsAdminUser, IsOwner)
+    permission_classes = (IsAdminUser,)
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
+    """ Создание токена """
     serializer_class = MyTokenObtainPairSerializer
