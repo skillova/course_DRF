@@ -26,7 +26,7 @@ class Habits(models.Model):
         **NULLABLE,
         verbose_name='Место'
     )
-    execution_time = models.DateField(
+    execution_time = models.TimeField(
         verbose_name='Время'
     )
     action = models.CharField(

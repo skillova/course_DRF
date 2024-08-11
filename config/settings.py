@@ -9,18 +9,23 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dot_env = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path=dot_env)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sm6#b&+uxdghov!y%$h%!zu@p+09fxtz#g3ucy671*fycgml0x'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_celery_beat',
 
     'rest_framework',
     'rest_framework_simplejwt',
@@ -82,11 +89,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_course_drf',  # Название БД
-        'USER': 'admin',  # Пользователь для подключения
-        'PASSWORD': 'admin',  # Пароль для этого пользователя
-        'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
-        'PORT': 5432,  # Порт, на котором работает сервер БД
+        'NAME': os.getenv('NAME'),  # Название БД
+        'USER': os.getenv('USER'),  # Пользователь для подключения
+        'PASSWORD': os.getenv('PASSWORD'),  # Пароль для этого пользователя
+        'HOST': os.getenv('HOST'),  # Адрес, на котором развернут сервер БД
+        'PORT': os.getenv('PORT'),  # Порт, на котором работает сервер БД
     }
 }
 
@@ -146,3 +153,24 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+# Настройки для Celery
+
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # Например, Redis, который по умолчанию работает на порту 6379
+
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
+
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = TIME_ZONE
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULER ='django_celery_beat.schedulers:DatabaseScheduler'
+
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')

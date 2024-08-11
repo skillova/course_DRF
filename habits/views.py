@@ -6,6 +6,8 @@ from habits.paginators import Pagination
 from habits.permissions import IsOwner
 from habits.serializers import HabitsSerializer
 
+from .tasks import add
+
 
 class HabitsCreateAPIView(generics.CreateAPIView):
     serializer_class = HabitsSerializer
@@ -15,6 +17,7 @@ class HabitsCreateAPIView(generics.CreateAPIView):
         new_habits = serializer.save()
         new_habits.user = self.request.user
         new_habits.save()
+        add.delay()
 
 
 class HabitsListAPIView(generics.ListAPIView):
