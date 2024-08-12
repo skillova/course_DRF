@@ -20,7 +20,7 @@ class HabitTestCase(APITestCase):
         self.habit = Habits.objects.create(
             user=self.user,
             place="Магазин",
-            execution_time="2024-08-10",
+            execution_time="18:00:00",
             action="Пойти в магазин за покупками",
             time_to_complete=60,
             sign_of_a_pleasant_habit=True,
@@ -35,7 +35,7 @@ class HabitTestCase(APITestCase):
         data = {
             "user": self.user.pk,
             "place": "Магазин",
-            "execution_time": "2024-08-10",
+            "execution_time": "18:00:00",
             "action": "Пойти в магазин за покупками",
             "time_to_complete": 60,
             "sign_of_a_pleasant_habit": True,
@@ -49,7 +49,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(data.get("user"), self.user.pk)
         self.assertEqual(data.get("place"), "Магазин")
-        self.assertEqual(data.get("execution_time"), "2024-08-10")
+        self.assertEqual(data.get("execution_time"), "18:00:00")
         self.assertEqual(data.get("action"), "Пойти в магазин за покупками")
         self.assertEqual(data.get("time_to_complete"), 60)
         self.assertEqual(data.get("sign_of_a_pleasant_habit"), True)
@@ -85,7 +85,7 @@ class HabitTestCase(APITestCase):
         data = {
             "user": self.user.pk,
             "place": "Фитнес-зал",
-            "execution_time": "2024-08-10",
+            "execution_time": "18:00:00",
             "action": "Тренировка в фитнес-зале",
             "time_to_complete": 120,
             "sign_of_a_pleasant_habit": True,
@@ -98,7 +98,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data.get("user"), self.habit.user.id)
         self.assertEqual(data.get("place"), "Фитнес-зал")
-        self.assertEqual(data.get("execution_time"), "2024-08-10")
+        self.assertEqual(data.get("execution_time"), "18:00:00")
         self.assertEqual(data.get("action"), "Тренировка в фитнес-зале")
         self.assertEqual(data.get("time_to_complete"), 120)
         self.assertEqual(data.get("sign_of_a_pleasant_habit"), True)
