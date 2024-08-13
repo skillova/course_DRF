@@ -15,5 +15,3 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Автоматически загружать задачи из всех зарегистрированных приложений Django
 app.autodiscover_tasks()
-
-

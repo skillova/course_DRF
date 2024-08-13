@@ -1,8 +1,7 @@
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import User
-from .permissions import IsOwner
 from .serializers import UserSerializer, MyTokenObtainPairSerializer
 from rest_framework import generics
 
