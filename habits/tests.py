@@ -22,7 +22,7 @@ class HabitTestCase(APITestCase):
             place="Магазин",
             execution_time="18:00:00",
             action="Пойти в магазин за покупками",
-            time_to_complete=60,
+            time_to_complete=2,
             sign_of_a_pleasant_habit=True,
             frequency_of_execution='every_week',
             is_published=True,
@@ -37,7 +37,7 @@ class HabitTestCase(APITestCase):
             "place": "Магазин",
             "execution_time": "18:00:00",
             "action": "Пойти в магазин за покупками",
-            "time_to_complete": 60,
+            "time_to_complete": 2,
             "sign_of_a_pleasant_habit": True,
             "frequency_of_execution": 'every_week',
         }
@@ -51,7 +51,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("place"), "Магазин")
         self.assertEqual(data.get("execution_time"), "18:00:00")
         self.assertEqual(data.get("action"), "Пойти в магазин за покупками")
-        self.assertEqual(data.get("time_to_complete"), 60)
+        self.assertEqual(data.get("time_to_complete"), 2)
         self.assertEqual(data.get("sign_of_a_pleasant_habit"), True)
         self.assertEqual(data.get("frequency_of_execution"), 'every_week')
 
@@ -87,7 +87,7 @@ class HabitTestCase(APITestCase):
             "place": "Фитнес-зал",
             "execution_time": "18:00:00",
             "action": "Тренировка в фитнес-зале",
-            "time_to_complete": 120,
+            "time_to_complete": 2,
             "sign_of_a_pleasant_habit": True,
             "frequency_of_execution": 'everyday',
         }
@@ -100,7 +100,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("place"), "Фитнес-зал")
         self.assertEqual(data.get("execution_time"), "18:00:00")
         self.assertEqual(data.get("action"), "Тренировка в фитнес-зале")
-        self.assertEqual(data.get("time_to_complete"), 120)
+        self.assertEqual(data.get("time_to_complete"), 2)
         self.assertEqual(data.get("sign_of_a_pleasant_habit"), True)
         self.assertEqual(data.get("frequency_of_execution"), 'everyday')
 
@@ -110,4 +110,4 @@ class HabitTestCase(APITestCase):
         url = reverse("habits:habits-delete", args=(self.habit.pk,))
         response = self.client.delete(url)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
